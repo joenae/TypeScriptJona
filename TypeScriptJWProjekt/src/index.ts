@@ -23,7 +23,7 @@ const wallHitSound = new Audio('sounds/wallHitSound.wav');
 let showingWinScreen = false; 
 //let titleScreen = true; 
 
-let player1Y = 250;  // des ausgrauen und das Spiel beginnt erst mit dem Mouse hovern ins Feld 
+let player1Y = 250;  
 let player2Y = 250; 
 const paddleHeight = 100; 
 const paddleThickness = 10; 
@@ -50,7 +50,7 @@ function keyDownHandler(event: KeyboardEvent) {
   switch (event.keyCode) {
     // "up arrow" key
     case 38:
-      // set upArrowPressed = true
+      // setzt upArrowPressed = true
       upArrowPressed = true;
       break;
     // "down arrow" key
@@ -128,7 +128,7 @@ function moveAll() {
         return; 
     }
     
-      // move the paddle
+      // Spieler bewegen 
     if (upArrowPressed && player1Y > 0) {
         player1Y -= 12;
     } else if (downArrowPressed && (player1Y < canvas.height - paddleHeight)) {
@@ -185,7 +185,6 @@ function moveAll() {
     }
 
 }
-
 
 function colorRect(leftX: number, topY: number, width: number, height: number, drawColor: string){
     ctx.fillStyle = drawColor; 
