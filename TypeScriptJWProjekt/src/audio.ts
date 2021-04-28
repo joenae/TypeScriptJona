@@ -1,9 +1,6 @@
-// inspiriert durch https://www.w3schools.com/graphics/game_sound.asp
-
 export class sound {
     sound:HTMLAudioElement;
     play: () => void;
-    stop: () => void;
     constructor(src:any) {
         this.sound = document.createElement("audio");
         this.sound.src = src;
@@ -13,10 +10,6 @@ export class sound {
         document.body.appendChild(this.sound);
         this.play = function () {
             this.sound.play();
-        };
-
-        this.stop = function () {
-            this.sound.pause();
         };
     }
 }
