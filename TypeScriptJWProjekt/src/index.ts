@@ -1,3 +1,4 @@
+import { hitSound, scoreSound, wallHitSound } from "./audio";
 import { splash , openBtn as openBtn , rules , closeBtn as closeßBtn } from "./dom-utils"; 
 
 
@@ -13,20 +14,19 @@ let player2Score: number = 0;
 
 const winningScore = 3; 
 
+// Tastatur
 let upArrowPressed = false;
 let downArrowPressed = false;
 
-const hitSound = new Audio('sounds/hitSound.wav');
-const scoreSound = new Audio('sounds/scoreSound.wav');
-const wallHitSound = new Audio('sounds/wallHitSound.wav');
-
+// Endscreen
 let showingWinScreen = false; 
 //let titleScreen = true; 
 
+// Player
 let player1Y = 250;  
 let player2Y = 250; 
-const paddleHeight = 100; 
-const paddleThickness = 10; 
+const playerHeight = 100; 
+const playerThickness = 10; 
 
 
 document.addEventListener('DOMContentLoaded', (e)=>{
@@ -115,10 +115,10 @@ function ballResetRight() {
 }
 
 function compMovement() {
-    let paddle2YCenter = player2Y + (paddleHeight/2); 
+    let paddle2YCenter = player2Y + (playerHeight/2); 
     if(paddle2YCenter < ballY - 40 && paddle2YCenter > 40){ // Ball ignorieren, wenn er unter 40 Pixel ist 
         player2Y += 8;  
-    } else if(paddle2YCenter > ballY + 40 && (player2Y < canvas.height - paddleHeight + 40)) {  
+    } else if(paddle2YCenter > ballY + 40 && (player2Y < canvas.height - playerHeight + 40)) {  
         player2Y -= 8; 
     }
 }
@@ -131,7 +131,7 @@ function moveAll() {
       // Spieler bewegen 
     if (upArrowPressed && player1Y > 0) {
         player1Y -= 12;
-    } else if (downArrowPressed && (player1Y < canvas.height - paddleHeight)) {
+    } else if (downArrowPressed && (player1Y < canvas.height - playerHeight)) {
         player1Y += 12;
     }
 
@@ -146,10 +146,10 @@ function moveAll() {
     //links: 
     if(ballX < 10){
         if( ballY > player1Y && 
-            ballY < player1Y + paddleHeight){
+            ballY < player1Y + playerHeight){
                 ballSpeedX = -ballSpeedX; 
                 //Ball Kontrolle links / den Ball in einem anderen Winkel zurückgeben 
-                let deltaY: number = ballY -(player1Y+paddleHeight/2); 
+                let deltaY: number = ballY -(player1Y+playerHeight/2); 
                 ballSpeedY = deltaY * 0.35; 
                 hitSound.play();
             }else {
@@ -161,10 +161,10 @@ function moveAll() {
     //rechts: 
     if(ballX > canvas.width - 10){
             if( ballY > player2Y && 
-                ballY < player2Y + paddleHeight){
+                ballY < player2Y + playerHeight){
                     ballSpeedX = -ballSpeedX; 
                     //Ball Kontrolle rechts
-                    let deltaY = ballY -(player2Y+paddleHeight/2); 
+                    let deltaY = ballY -(player2Y+playerHeight/2); 
                     ballSpeedY = deltaY * 0.35; 
                     hitSound.play();
                 }else {
@@ -221,9 +221,9 @@ function drawAll() {
     }
     drawNet(); 
     //draws left Player paddle
-    colorRect(0,player1Y,paddleThickness,paddleHeight,'brown'); 
+    colorRect(0,player1Y,playerThickness,playerHeight,'brown'); 
     //draws rigth Computer paddle
-    colorRect(canvas.width - paddleThickness,player2Y,10,paddleHeight,'brown'); 
+    colorRect(canvas.width - playerThickness,player2Y,10,playerHeight,'brown'); 
     //draws Ball 
     colorCircle(ballX, ballY, 10, 'brown'); 
     
