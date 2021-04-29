@@ -1,7 +1,7 @@
 import { hitSound, scoreSound, wallHitSound } from "./audio";
 import { splash , openBtn as openBtn , rules , closeBtn as closeßBtn } from "./dom-utils"; 
 
-
+const startSpiel = document.querySelector("#startSpiel") as HTMLElement;
 let canvas = document.getElementById('gameCanvas') as HTMLCanvasElement; 
 const ctx = canvas.getContext('2d')!;
 let ballX = 50;
@@ -17,6 +17,8 @@ const winningScore = 3;
 // Tastatur
 let upArrowPressed = false;
 let downArrowPressed = false;
+let SPressed = false; 
+let WPressed = false; 
 
 // Endscreen
 let showingWinScreen = false; 
@@ -57,6 +59,14 @@ function keyDownHandler(event: KeyboardEvent) {
     case 40:
       downArrowPressed = true;
       break;
+       // set upArrowPressed = true
+    case 83:
+    SPressed = true;
+       break;
+     // "down arrow" key
+     case 87:
+    WPressed = true;
+       break;
   }
 }
 // gets activated when we release the key
@@ -69,6 +79,14 @@ function keyUpHandler(event: KeyboardEvent) {
     // "down arrow" key
     case 40:
       downArrowPressed = false;
+      break;
+     // s key
+    case 83:
+      SPressed = false;
+      break;
+    // "down arrow" key
+    case 87:
+      WPressed = false;
       break;
   }
 }
@@ -114,6 +132,7 @@ function ballResetRight() {
     ballY = canvas.height/2; 
 }
 
+
 function compMovement() {
     let paddle2YCenter = player2Y + (playerHeight/2); 
     if(paddle2YCenter < ballY - 40 && paddle2YCenter > 40){ // Ball ignorieren, wenn er unter 40 Pixel ist 
@@ -122,6 +141,16 @@ function compMovement() {
         player2Y -= 8; 
     }
 }
+
+function startGame() {
+    let startDiv = document.querySelector("#startSpiel") as HTMLElement;
+    startDiv.classList.add("deactivatebutton"); 
+    canvas.classList.remove("deactivecanvas");
+    setInterval(gameLoop, 1000 / 60); 
+}
+
+startSpiel.addEventListener('click',function(){startGame()});
+
 
 function moveAll() {
     if(showingWinScreen){
@@ -234,9 +263,16 @@ function drawAll() {
     ctx.fillText(p2ScoreText, canvas.width - 100, 100); 
     
 }
+function gameLoop() {
+    // updated hier alles
+    moveAll();
+    // rendert hier alles 
+    drawAll();
+  }
 
+  
 //startGame(); 
-document.addEventListener('DOMContentLoaded', (e)=>{
+/*document.addEventListener('DOMContentLoaded', (e)=>{
     setTimeout(()=>{
         function gameLoop() {
             // updated hier alles
@@ -247,4 +283,4 @@ document.addEventListener('DOMContentLoaded', (e)=>{
     
         setInterval(gameLoop, 1000 / 60); 
     }, 2000)
-}) 
+}) */ 
