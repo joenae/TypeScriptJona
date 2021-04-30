@@ -3,7 +3,7 @@
 }
 
 body{
-  background-color: darkcyan;
+  background-color: #DB5756;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,14 +15,14 @@ body{
 
 h1 {
 font-size: 45px;
-color: bisque;
+color: #F1F1F1;
 }
 
 #gameCanvas {
-background: #f0f0f0;
+background: #F1F1F1;
 display: block;
 border-radius: 5px;
-border-color: brown;
+border-color: #061324;
 border-width: 5px;
 border-style: solid;
 }
@@ -41,17 +41,17 @@ border-style: solid;
 
 #startSpiel{
   font-family:Arial, Helvetica, sans-serif;
-  color: bisque;
+  color: #F1F1F1;
   text-align: center;
   cursor: pointer;
   padding-bottom: 10px;
   padding: 10px;
   border-radius: 4px;
-  border: 3px solid brown;
-  background-color: bisque; 
+  border: 3px solid #49738C;
+  background-color: #A8C9DA; 
   text-align: center;
   font-size: 40px;
-  color: brown; 
+  color: #49738C; 
   text-decoration: none;
   width: 200px;
   margin-top: 60px;
@@ -71,17 +71,17 @@ border-style: solid;
 
 #startSpielZweiSpieler{
   font-family:Arial, Helvetica, sans-serif;
-  color: bisque;
+  color: #F1F1F1;
   text-align: center;
   cursor: pointer;
   padding-bottom: 10px;
   padding: 10px;
   border-radius: 4px;
-  border: 3px solid brown;
-  background-color: bisque; 
+  border: 3px solid #49738C;
+  background-color: #A8C9DA; 
   text-align: center;
   font-size: 40px;
-  color: brown; 
+  color: #49738C; 
   text-decoration: none;
   width: 200px;
   margin-top: 60px;
@@ -109,7 +109,7 @@ border-style: solid;
   height: 100vh; 
   background: #333;
   z-index: 200;
-  color: darkcyan;
+  color: #49738C;
   text-align: center;
   line-height: 90vh;
 }
@@ -123,7 +123,7 @@ border-style: solid;
   height: 100vh; 
   background: bisque;
   z-index: -10;
-  color: darkcyan;
+  color: #49738C;
   text-align: center;
   line-height: 90vh;
   transition: all 0.8s; 
@@ -144,8 +144,8 @@ border-style: solid;
   cursor: pointer;
   border: 0;
   padding: 15px 40px;
-  background: brown;
-  color: bisque;
+  background: #49738C;
+  color: #F1F1F1;
   border-radius: 5px;
 }
 
@@ -154,8 +154,8 @@ border-style: solid;
 }
 
 .btn:hover {
-  background: bisque;
-  color: brown;
+  background: #F1F1F1;
+  color: #49738C;
 }
 
 .btn:active {
@@ -173,7 +173,7 @@ border-style: solid;
   top: 0;
   left: 0;
   background: #333;
-  color: bisque;
+  color: #F1F1F1;
   min-height: 100vh;
   width: 400px;
   padding: 20px;

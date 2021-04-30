@@ -245,30 +245,41 @@ function moveAllTwoPlayer() {
     collisionDetect(); 
 }
 
-function colorRect(leftX: number, topY: number, width: number, height: number, drawColor: string){
+function drawRect(leftX: number, topY: number, width: number, height: number, drawColor: string){
     ctx.fillStyle = drawColor; 
     ctx.fillRect(leftX, topY, width, height); 
 }
 
-function colorCircle(centerX: number, centerY: number, radius: number, drawColor: string) {
+function drawBall(centerX: number, centerY: number, radius: number, drawColor: string) {
     ctx.fillStyle = drawColor; 
     ctx.beginPath();
 	ctx.arc(centerX, centerY, radius, 0, Math.PI*2, true); //True und False kann man bei änderung des PI Wertes die Seiten wählen
 	ctx.fill();
 }
 
-function drawNet() {
-    for(let i=0; i < canvas.height; i += 35.8){
-        colorRect(canvas.width/2-1,i,3,30, 'brown');
+function drawLine(startPointX: number, startPointY: number, endPointX: number, endPointY: number, drawColor: string) {
+    ctx.strokeStyle = drawColor; 
+    ctx.beginPath();
+    ctx.lineWidth = 5;
+    ctx.moveTo(startPointX, startPointY);
+    ctx.lineTo(endPointX, endPointY);
+    ctx.stroke(); 
     }
+
+function drawCircle(centerX: number, centerY: number, radius: number, drawColor: string) {
+    ctx.strokeStyle = drawColor; 
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.lineWidth = 5;
+    ctx.stroke(); 
 }
 
 function drawAll() {
     ctx.font = '20px "Arial", sans serif'; 
     //Spielfeld zeichnen  
-    colorRect(0,0,canvas.width,canvas.height,'bisque'); 
+    drawRect(0,0,canvas.width,canvas.height,'#F1F1F1'); 
     if(showingWinScreen){
-        ctx.fillStyle = 'brown'; 
+        ctx.fillStyle = '#061324'; 
         if(player1Score >= winningScore) {
             ctx.fillText("Du hast gewonnen! Gratulation!", 265, 200); 
          } else if( player2Score >= winningScore){
@@ -278,13 +289,18 @@ function drawAll() {
         ctx.fillText("Click to continue", 325, 500); 
         return; 
     }
-    drawNet(); 
+    drawCircle(0, 300, 80, '#DB5756')
+    drawCircle(800, 300, 80, '#DB5756')
+    drawCircle(400, 300, 80, '#061324'); 
+    drawLine(400, 0, 400, 600, '#061324'); 
+    drawLine(550, 0, 550, 600, '#A8C9DA'); 
+    drawLine(250, 0, 250, 600, '#A8C9DA'); 
     //zeichnet linken Spieler
-    colorRect(0,player1Y,playerThickness,playerHeight,'brown'); 
+    drawRect(0,player1Y,playerThickness,playerHeight,'#49738C'); 
     //zeichnet rechten Spieler
-    colorRect(canvas.width - playerThickness,player2Y,10,playerHeight,'brown'); 
+    drawRect(canvas.width - playerThickness,player2Y,10,playerHeight,'#49738C'); 
     //zeichnet Ball 
-    colorCircle(ballX, ballY, 10, 'brown'); 
+    drawBall(ballX, ballY, 10, '#49738C'); 
     
     let p1Scoretext: string = player1Score.toString(); // Number to String für print Methode 
     let p2ScoreText: string = player2Score.toString(); 
