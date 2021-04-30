@@ -2,6 +2,7 @@ import { hitSound, scoreSound, wallHitSound } from "./audio";
 import { splash , openBtn as openBtn , rules , closeBtn as closeßBtn } from "./dom-utils"; 
 
 const startSpiel = document.querySelector("#startSpiel") as HTMLElement;
+const startSpiel2 = document.querySelector("#startSpielZweiSpieler") as HTMLElement;
 let canvas = document.getElementById('gameCanvas') as HTMLCanvasElement; 
 const ctx = canvas.getContext('2d')!;
 let ballX = 50;
@@ -132,6 +133,22 @@ function ballResetRight() {
     ballY = canvas.height/2; 
 }
 
+function leftPlayerMove(){
+     // Spieler bewegen 
+     if (WPressed && player1Y > 0) {
+        player1Y -= 12;
+    } else if (SPressed && (player1Y < canvas.height - playerHeight)) {
+        player1Y += 12;
+    }
+}
+
+function rightPlayerMove(){
+    if (upArrowPressed && player2Y > 0) {
+        player2Y -= 12;
+    } else if (downArrowPressed && (player2Y < canvas.height - playerHeight)) {
+        player2Y += 12;
+    }
+}
 
 function compMovement() {
     let paddle2YCenter = player2Y + (playerHeight/2); 
@@ -142,77 +159,90 @@ function compMovement() {
     }
 }
 
+let startBtn1 = document.querySelector("#startSpielZweiSpieler") as HTMLElement;
+let startBtn = document.querySelector("#startSpiel") as HTMLElement;
+
 function startGame() {
-    let startDiv = document.querySelector("#startSpiel") as HTMLElement;
-    startDiv.classList.add("deactivatebutton"); 
+    startBtn.classList.add("deactivatebutton1"); 
+    startBtn1.classList.add("deactivatebutton2"); 
     canvas.classList.remove("deactivecanvas");
     setInterval(gameLoop, 1000 / 60); 
 }
 
+function startGameTwoPlayer() {
+    startBtn1.classList.add("deactivatebutton2"); 
+    startBtn.classList.add("deactivatebutton1"); 
+    canvas.classList.remove("deactivecanvas");
+    setInterval(gameLoopTwoPlayer, 1000 / 60); 
+}
+
 startSpiel.addEventListener('click',function(){startGame()});
+startSpiel2.addEventListener('click',function(){startGameTwoPlayer()});
 
-
-function moveAll() {
-    if(showingWinScreen){
-        return; 
-    }
-    
-      // Spieler bewegen 
-    if (upArrowPressed && player1Y > 0) {
-        player1Y -= 12;
-    } else if (downArrowPressed && (player1Y < canvas.height - playerHeight)) {
-        player1Y += 12;
-    }
-
-    compMovement(); 
-
-
-    ballX = ballX + ballSpeedX;
-    ballY = ballY + ballSpeedY; 
-    //ballSpeedX = ballSpeedX + 1; 
-
-    //Ball an Wnad bouncen lassen 
-    //links: 
-    if(ballX < 10){
-        if( ballY > player1Y && 
-            ballY < player1Y + playerHeight){
+function collisionDetect(){
+//Ball an Wnad bouncen lassen 
+//links: 
+if(ballX < 10){
+    if( ballY > player1Y && 
+        ballY < player1Y + playerHeight){
+            ballSpeedX = -ballSpeedX; 
+            //Ball Kontrolle links / den Ball in einem anderen Winkel zurückgeben 
+            let deltaY: number = ballY -(player1Y+playerHeight/2); 
+            ballSpeedY = deltaY * 0.35; 
+            hitSound.play();
+        }else {
+             player2Score ++;  
+             scoreSound.play();
+             ballResetRight();    
+        } 
+}
+//rechts: 
+if(ballX > canvas.width - 10){
+        if( ballY > player2Y && 
+            ballY < player2Y + playerHeight){
                 ballSpeedX = -ballSpeedX; 
-                //Ball Kontrolle links / den Ball in einem anderen Winkel zurückgeben 
-                let deltaY: number = ballY -(player1Y+playerHeight/2); 
+                //Ball Kontrolle rechts
+                let deltaY = ballY -(player2Y+playerHeight/2); 
                 ballSpeedY = deltaY * 0.35; 
                 hitSound.play();
             }else {
-                 player2Score ++;  
+                 player1Score ++;  
                  scoreSound.play();
-                 ballResetRight();    
+                 ballReset();
             } 
-    }
-    //rechts: 
-    if(ballX > canvas.width - 10){
-            if( ballY > player2Y && 
-                ballY < player2Y + playerHeight){
-                    ballSpeedX = -ballSpeedX; 
-                    //Ball Kontrolle rechts
-                    let deltaY = ballY -(player2Y+playerHeight/2); 
-                    ballSpeedY = deltaY * 0.35; 
-                    hitSound.play();
-                }else {
-                     player1Score ++;  
-                     scoreSound.play();
-                     ballReset();
-                } 
-    }
-    //oben: 
-    if(ballY < 10){
-        ballSpeedY = -ballSpeedY;
-        wallHitSound.play(); 
-    }
-    //unten: 
-    if(ballY > canvas.height - 10){
-        ballSpeedY = -ballSpeedY;
-        wallHitSound.play(); 
-    }
+}
+//oben: 
+if(ballY < 10){
+    ballSpeedY = -ballSpeedY;
+    wallHitSound.play(); 
+}
+//unten: 
+if(ballY > canvas.height - 10){
+    ballSpeedY = -ballSpeedY;
+    wallHitSound.play(); 
+}
+}
 
+function moveAllOnePlayer() {
+    if(showingWinScreen){
+        return; 
+    }
+    leftPlayerMove();
+    compMovement(); 
+    ballX = ballX + ballSpeedX;
+    ballY = ballY + ballSpeedY; 
+    collisionDetect(); 
+}
+
+function moveAllTwoPlayer() {
+    if(showingWinScreen){
+        return; 
+    }
+    leftPlayerMove();
+    rightPlayerMove(); 
+    ballX = ballX + ballSpeedX;
+    ballY = ballY + ballSpeedY; 
+    collisionDetect(); 
 }
 
 function colorRect(leftX: number, topY: number, width: number, height: number, drawColor: string){
@@ -249,11 +279,11 @@ function drawAll() {
         return; 
     }
     drawNet(); 
-    //draws left Player paddle
+    //zeichnet linken Spieler
     colorRect(0,player1Y,playerThickness,playerHeight,'brown'); 
-    //draws rigth Computer paddle
+    //zeichnet rechten Spieler
     colorRect(canvas.width - playerThickness,player2Y,10,playerHeight,'brown'); 
-    //draws Ball 
+    //zeichnet Ball 
     colorCircle(ballX, ballY, 10, 'brown'); 
     
     let p1Scoretext: string = player1Score.toString(); // Number to String für print Methode 
@@ -265,22 +295,14 @@ function drawAll() {
 }
 function gameLoop() {
     // updated hier alles
-    moveAll();
+    moveAllOnePlayer();
     // rendert hier alles 
     drawAll();
   }
 
-  
-//startGame(); 
-/*document.addEventListener('DOMContentLoaded', (e)=>{
-    setTimeout(()=>{
-        function gameLoop() {
-            // updated hier alles
-            moveAll();
-            // rendert hier alles 
-            drawAll();
-          }
-    
-        setInterval(gameLoop, 1000 / 60); 
-    }, 2000)
-}) */ 
+function gameLoopTwoPlayer(){
+    // updated hier alles
+    moveAllTwoPlayer();
+    // rendert hier alles 
+    drawAll();
+}

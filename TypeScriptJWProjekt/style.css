@@ -12,20 +12,6 @@ body{
   min-height: 100vh;
   margin: 0;
 }
-/*h1{
-  margin-bottom: 600px;
-  margin-left: 80px;
-  color: bisque;
-}
-
-#gameCanvas {
-  position: absolute;
-  top:40%;
-  left:35%;
-  margin-top: -100px;
-  margin-left: -100px;
-  border-radius: 4px;
-}*/
 
 h1 {
 font-size: 45px;
@@ -41,7 +27,11 @@ border-width: 5px;
 border-style: solid;
 }
 
-.deactivatebutton{
+.deactivatebutton1{
+  display: none;
+}
+
+.deactivatebutton2{
   display: none;
 }
 
@@ -65,6 +55,7 @@ border-style: solid;
   text-decoration: none;
   width: 200px;
   margin-top: 60px;
+  margin-right: 220px;
   position: fixed;
 }
 
@@ -76,9 +67,38 @@ border-style: solid;
 #startSpiel:hover { 
   box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.3), 0 0.2rem 0.5rem rgba(0,0,0,0.3), 0 0.2rem 0.2rem rgba(0,0,0,0.22); 
   transform: translate(0, -0.5rem); 
-  /* color: cornsilk; 
-  box-shadow: inset 0 0 0 0.5rem; */ 
 }
+
+#startSpielZweiSpieler{
+  font-family:Arial, Helvetica, sans-serif;
+  color: bisque;
+  text-align: center;
+  cursor: pointer;
+  padding-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 3px solid brown;
+  background-color: bisque; 
+  text-align: center;
+  font-size: 40px;
+  color: brown; 
+  text-decoration: none;
+  width: 200px;
+  margin-top: 60px;
+  margin-left: 220px; 
+  position: fixed;
+}
+
+#startSpielZweiSpieler button{
+  display: block;
+  display: inline-block;
+}
+
+#startSpielZweiSpieler:hover { 
+  box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.3), 0 0.2rem 0.5rem rgba(0,0,0,0.3), 0 0.2rem 0.2rem rgba(0,0,0,0.22); 
+  transform: translate(0, -0.5rem); 
+}
+
 
 .splash{
   font-size: 40px;
@@ -123,7 +143,7 @@ border-style: solid;
 .btn {
   cursor: pointer;
   border: 0;
-  padding: 10px 20px;
+  padding: 15px 40px;
   background: brown;
   color: bisque;
   border-radius: 5px;
