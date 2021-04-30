@@ -44,21 +44,19 @@ border-style: solid;
 
 #startSpiel{
   font-family:Arial, Helvetica, sans-serif;
-  color: #F1F1F1;
   text-align: center;
   cursor: pointer;
   padding-bottom: 10px;
-  padding: 10px;
+  padding: 12px;
   border-radius: 4px;
   border: 3px solid #49738C;
   background-color: #A8C9DA; 
   text-align: center;
-  font-size: 40px;
+  font-size: 20px;
   color: #49738C; 
+  width: 140px;
   text-decoration: none;
-  width: 200px;
-  margin-top: 60px;
-  margin-right: 220px;
+  margin-top: -40px;
   position: fixed;
 }
 
@@ -74,21 +72,18 @@ border-style: solid;
 
 #startSpielZweiSpieler{
   font-family:Arial, Helvetica, sans-serif;
-  color: #F1F1F1;
   text-align: center;
   cursor: pointer;
   padding-bottom: 10px;
-  padding: 10px;
+  padding: 12px;
   border-radius: 4px;
   border: 3px solid #49738C;
   background-color: #A8C9DA; 
   text-align: center;
-  font-size: 40px;
+  font-size: 20px;
   color: #49738C; 
   text-decoration: none;
-  width: 200px;
-  margin-top: 60px;
-  margin-left: 220px; 
+  margin-top: 160px;
   position: fixed;
 }
 
@@ -183,6 +178,7 @@ border-style: solid;
   line-height: 1.5;
   transform: translateX(-400px);
   transition: transform 1s ease-in-out;
+  z-index: 20;
 }
 
 .rules.show {
@@ -269,4 +265,4 @@ font-family: video-cond, serif;
 font-weight: 700;
 
 font-style: normal;
-
+*/
