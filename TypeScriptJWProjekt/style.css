@@ -8,7 +8,10 @@ body{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: Arial, Helvetica, sans-serif;
+  /*font-family: Arial, Helvetica, sans-serif;*/
+  font-family: Video Medium, video, serif;
+  font-weight: 500;
+  font-style: normal;
   min-height: 100vh;
   margin: 0;
 }
@@ -185,3 +188,85 @@ border-style: solid;
 .rules.show {
   transform: translateX(0);
 }
+
+/*
+Video Light
+
+font-family: video, serif;
+
+font-weight: 300;
+
+font-style: normal;
+
+Video Regular
+
+font-family: video, serif;
+
+font-weight: 400;
+
+font-style: normal;
+
+Video Medium
+
+font-family: video, serif;
+
+font-weight: 500;
+
+font-style: normal;
+
+Video SemiBold
+
+font-family: video, serif;
+
+font-weight: 600;
+
+font-style: normal;
+
+Video Bold
+
+font-family: video, serif;
+
+font-weight: 700;
+
+font-style: normal;
+
+Video Cond Light
+
+font-family: video-cond, serif;
+
+font-weight: 300;
+
+font-style: normal;
+
+Video Cond Regular
+
+font-family: video-cond, serif;
+
+font-weight: 400;
+
+font-style: normal;
+
+Video Cond Medium
+
+font-family: video-cond, serif;
+
+font-weight: 500;
+
+font-style: normal;
+
+Video Cond SemiBold
+
+font-family: video-cond, serif;
+
+font-weight: 600;
+
+font-style: normal;
+
+Video Cond Bold
+
+font-family: video-cond, serif;
+
+font-weight: 700;
+
+font-style: normal;
+
