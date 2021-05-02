@@ -23,8 +23,7 @@ let WPressed = false;
 
 // Endscreen
 let showingWinScreen = false; 
-//let titleScreen = true; 
-
+ 
 // Player
 let player1Y = 250;  
 let player2Y = 250; 
@@ -38,7 +37,6 @@ document.addEventListener('DOMContentLoaded', (e)=>{
     }, 2000)
 })
 
-
 canvas.addEventListener('mousedown', MouseClickHandler); 
 openBtn.addEventListener('click', () => rules.classList.add('show'));
 closeßBtn.addEventListener('click', () => rules.classList.remove('show'));
@@ -49,28 +47,27 @@ window.addEventListener('keyup', keyUpHandler);
 
 // Hier werden die Keys definiert 
 function keyDownHandler(event: KeyboardEvent) {
-  // get the keyCode
   switch (event.keyCode) {
     // "up arrow" key
     case 38:
-      // setzt upArrowPressed = true
+      // 
       upArrowPressed = true;
       break;
     // "down arrow" key
     case 40:
       downArrowPressed = true;
       break;
-       // set upArrowPressed = true
-    case 83:
+       // "s" key
+     case 83:
     SPressed = true;
        break;
-     // "down arrow" key
+     // "w" key
      case 87:
     WPressed = true;
        break;
   }
 }
-// gets activated when we release the key
+
 function keyUpHandler(event: KeyboardEvent) {
   switch (event.keyCode) {
     // "up arraow" key
@@ -85,7 +82,7 @@ function keyUpHandler(event: KeyboardEvent) {
     case 83:
       SPressed = false;
       break;
-    // "down arrow" key
+    // "w" key
     case 87:
       WPressed = false;
       break;
@@ -99,12 +96,6 @@ function MouseClickHandler() {
         showingWinScreen = false; 
     }
 }
-
-/*function startGame() {
-    let startDiv = document.querySelector(".start") as HTMLElement;
-    startDiv.style.display = "none";
-    canvas.style.display = "block";
-}*/
 
 function ballReset() {
     if(player1Score >= winningScore ||
