@@ -272,10 +272,11 @@ function drawAll() {
     if(showingWinScreen){
         ctx.fillStyle = '#061324'; 
         if(player1Score >= winningScore) {
-            ctx.fillText("Du hast gewonnen! Gratulation!", 265, 200); 
+            ctx.fillText("Der linke Spieler hat gewonnen!", 260, 200); 
+            ctx.fillText("Gratulation!", 345, 230); 
          } else if( player2Score >= winningScore){
-            ctx.fillText("Der Computer hat leider gewonnen!", 250, 200);
-            ctx.fillText("Schade, versuche es weiter!", 280, 230);
+            ctx.fillText("Der rechte Spieler hat gewonnen!", 260, 200);
+            ctx.fillText("Gratulation!", 345, 230);
            }
         ctx.fillText("Click to continue", 325, 500); 
         return; 
@@ -300,6 +301,7 @@ function drawAll() {
     ctx.fillText(p2ScoreText, canvas.width - 100, 100); 
     
 }
+
 function gameLoop() {
     // updated hier alles
     moveAllOnePlayer();
