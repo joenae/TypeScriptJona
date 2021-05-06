@@ -15,15 +15,3 @@ export const ball = {
     speedX: 6,
     speedY: 4
 }; 
-
-// Player
-//let player1Y = 250;  
-//let player2Y = 250; 
-//const playerHeight = 100; 
-//const playerThickness = 10; 
-
-//Ball
-//let ballX = 400; 
-//let ballY = 300;
-//let ballSpeedX = 6; 
-//let ballSpeedY = 4; 
