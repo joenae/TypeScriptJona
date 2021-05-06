@@ -43,7 +43,7 @@ border-style: solid;
 }
 
 #startSpiel{
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Video Medium, video, serif;
   text-align: center;
   cursor: pointer;
   padding-bottom: 10px;
@@ -54,7 +54,7 @@ border-style: solid;
   text-align: center;
   font-size: 20px;
   color: #49738C; 
-  width: 140px;
+  width: 153px;
   text-decoration: none;
   margin-top: -40px;
   position: fixed;
@@ -71,7 +71,7 @@ border-style: solid;
 }
 
 #startSpielZweiSpieler{
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Video Medium, video, serif;
   text-align: center;
   cursor: pointer;
   padding-bottom: 10px;

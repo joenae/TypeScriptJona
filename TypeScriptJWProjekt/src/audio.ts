@@ -15,6 +15,6 @@ export class sound {
 }
 
 //Sound
-export const hitSound = new sound('./src/sounds/hitSound.wav');
-export const scoreSound = new sound('./src/sounds/scoreSound.wav');
-export const wallHitSound = new sound('./src/sounds/wallHitSound.wav');
+export const hitSound = new sound('./src/sounds/TrefferSound.wav');
+export const scoreSound = new sound('./src/sounds/TorSound.wav');
+export const wallHitSound = new sound('./src/sounds/WandSound.wav');

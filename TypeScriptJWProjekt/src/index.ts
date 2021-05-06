@@ -1,93 +1,22 @@
 import { hitSound, scoreSound, wallHitSound } from "./audio";
-import { splash , openBtn as openBtn , rules , closeBtn as closeßBtn } from "./dom-utils"; 
+import { startSpiel, startSpiel2 } from "./dom-utils";  
+import { player1, player2, playerHeight, playerThickness, ball} from './config'; 
+import { upArrowPressed, downArrowPressed, WPressed, SPressed} from './event'; 
 
-const startSpiel = document.querySelector("#startSpiel") as HTMLElement;
-const startSpiel2 = document.querySelector("#startSpielZweiSpieler") as HTMLElement;
 let canvas = document.getElementById('gameCanvas') as HTMLCanvasElement; 
 const ctx = canvas.getContext('2d')!;
-let ballX = 50;
-let ballY = 50; 
-let ballSpeedX = 6; 
-let ballSpeedY = 4; 
+canvas.addEventListener('mousedown', MouseClickHandler); 
 
+//PlayerScore
 let player1Score: number = 0; 
 let player2Score: number = 0; 
 
+//Zahl um Spiel zu gewinnen --> hier veränderbar 
 const winningScore = 3; 
-
-// Tastatur
-let upArrowPressed = false;
-let downArrowPressed = false;
-let SPressed = false; 
-let WPressed = false; 
 
 // Endscreen
 let showingWinScreen = false; 
- 
-// Player
-let player1Y = 250;  
-let player2Y = 250; 
-const playerHeight = 100; 
-const playerThickness = 10; 
 
-
-document.addEventListener('DOMContentLoaded', (e)=>{
-    setTimeout(()=>{
-        splash.classList.add('display-none'); 
-    }, 2000)
-})
-
-canvas.addEventListener('mousedown', MouseClickHandler); 
-openBtn.addEventListener('click', () => rules.classList.add('show'));
-closeßBtn.addEventListener('click', () => rules.classList.remove('show'));
-
-
-window.addEventListener('keydown', keyDownHandler);
-window.addEventListener('keyup', keyUpHandler);
-
-// Hier werden die Keys definiert 
-function keyDownHandler(event: KeyboardEvent) {
-  switch (event.keyCode) {
-    // "up arrow" key
-    case 38:
-      // 
-      upArrowPressed = true;
-      break;
-    // "down arrow" key
-    case 40:
-      downArrowPressed = true;
-      break;
-       // "s" key
-     case 83:
-    SPressed = true;
-       break;
-     // "w" key
-     case 87:
-    WPressed = true;
-       break;
-  }
-}
-
-function keyUpHandler(event: KeyboardEvent) {
-  switch (event.keyCode) {
-    // "up arraow" key
-    case 38:
-      upArrowPressed = false;
-      break;
-    // "down arrow" key
-    case 40:
-      downArrowPressed = false;
-      break;
-     // s key
-    case 83:
-      SPressed = false;
-      break;
-    // "w" key
-    case 87:
-      WPressed = false;
-      break;
-  }
-}
 
 function MouseClickHandler() {
     if(showingWinScreen){
@@ -103,12 +32,11 @@ function ballReset() {
            showingWinScreen = true; 
        }
     
-    ballSpeedX = 6; 
-    ballSpeedY = 4; 
-    ballSpeedY = ballSpeedY;   
-    ballSpeedX = -ballSpeedX; 
-    ballX = canvas.width/2; 
-    ballY = canvas.height/2; 
+    ball.speedX = 6; 
+    ball.speedY = 4;  
+    ball.speedX = -ball.speedX; 
+    ball.x = canvas.width/2; 
+    ball.y = canvas.height/2; 
 }
 
 function ballResetRight() {
@@ -117,36 +45,37 @@ function ballResetRight() {
            showingWinScreen = true; 
        }
     
-    ballSpeedX = 6; 
-    ballSpeedY = 4; 
-    ballSpeedY = -ballSpeedY;   
-    ballX = canvas.width/2; 
-    ballY = canvas.height/2; 
+       ball.speedX = 6; 
+       ball.speedY = 4; 
+       ball.speedY = -ball.speedY;   
+       ball.x = canvas.width/2; 
+       ball.y = canvas.height/2; 
 }
 
+//Spieler bewegen 
 function leftPlayerMove(){
      // Spieler bewegen 
-     if (WPressed && player1Y > 0) {
-        player1Y -= 12;
-    } else if (SPressed && (player1Y < canvas.height - playerHeight)) {
-        player1Y += 12;
+     if (WPressed && player1.y > 0) {
+        player1.y  -= 12;
+    } else if (SPressed && (player1.y  < canvas.height - playerHeight)) {
+        player1.y  += 12;
     }
 }
 
 function rightPlayerMove(){
-    if (upArrowPressed && player2Y > 0) {
-        player2Y -= 12;
-    } else if (downArrowPressed && (player2Y < canvas.height - playerHeight)) {
-        player2Y += 12;
+    if (upArrowPressed && player2.y  > 0) {
+        player2.y  -= 12;
+    } else if (downArrowPressed && (player2.y  < canvas.height - playerHeight)) {
+        player2.y  += 12;
     }
 }
 
 function compMovement() {
-    let paddle2YCenter = player2Y + (playerHeight/2); 
-    if(paddle2YCenter < ballY - 40 && paddle2YCenter > 40){ // Ball ignorieren, wenn er unter 40 Pixel ist 
-        player2Y += 8;  
-    } else if(paddle2YCenter > ballY + 40 && (player2Y < canvas.height - playerHeight + 40)) {  
-        player2Y -= 8; 
+    let comp2YCenter = player2.y + (playerHeight/2); 
+    if(comp2YCenter < ball.y - 40 && comp2YCenter > 40){ // Ball ignorieren, wenn er unter 40 Pixel ist 
+        player2.y += 8;  
+    } else if(comp2YCenter > ball.y + 40 && (player2.y < canvas.height - playerHeight + 40)) {  
+        player2.y -= 8; 
     }
 }
 
@@ -171,15 +100,15 @@ startSpiel.addEventListener('click',function(){startGame()});
 startSpiel2.addEventListener('click',function(){startGameTwoPlayer()});
 
 function collisionDetect(){
-//Ball an Wnad bouncen lassen 
+//Ball an Wand bouncen lassen 
 //links: 
-if(ballX < 10){
-    if( ballY > player1Y && 
-        ballY < player1Y + playerHeight){
-            ballSpeedX = -ballSpeedX; 
+if(ball.x < 10){
+    if( ball.y > player1.y && 
+        ball.y < player1.y + playerHeight){
+            ball.speedX = -ball.speedX; 
             //Ball Kontrolle links / den Ball in einem anderen Winkel zurückgeben 
-            let deltaY: number = ballY -(player1Y+playerHeight/2); 
-            ballSpeedY = deltaY * 0.35; 
+            let angleY: number = ball.y -(player1.y+playerHeight/2); 
+            ball.speedY = angleY * 0.35; 
             hitSound.play();
         }else {
              player2Score ++;  
@@ -188,13 +117,13 @@ if(ballX < 10){
         } 
 }
 //rechts: 
-if(ballX > canvas.width - 10){
-        if( ballY > player2Y && 
-            ballY < player2Y + playerHeight){
-                ballSpeedX = -ballSpeedX; 
+if(ball.x > canvas.width - 10){
+        if( ball.y > player2.y && 
+            ball.y < player2.y + playerHeight){
+                ball.speedX = -ball.speedX; 
                 //Ball Kontrolle rechts
-                let deltaY = ballY -(player2Y+playerHeight/2); 
-                ballSpeedY = deltaY * 0.35; 
+                let angleY = ball.y -(player2.y+playerHeight/2); 
+                ball.speedY = angleY * 0.35; 
                 hitSound.play();
             }else {
                  player1Score ++;  
@@ -203,16 +132,17 @@ if(ballX > canvas.width - 10){
             } 
 }
 //oben: 
-if(ballY < 10){
-    ballSpeedY = -ballSpeedY;
+if(ball.y < 10){
+    ball.speedY = -ball.speedY;
     wallHitSound.play(); 
 }
 //unten: 
-if(ballY > canvas.height - 10){
-    ballSpeedY = -ballSpeedY;
+if(ball.y > canvas.height - 10){
+    ball.speedY = -ball.speedY;
     wallHitSound.play(); 
 }
 }
+
 
 function moveAllOnePlayer() {
     if(showingWinScreen){
@@ -220,8 +150,8 @@ function moveAllOnePlayer() {
     }
     leftPlayerMove();
     compMovement(); 
-    ballX = ballX + ballSpeedX;
-    ballY = ballY + ballSpeedY; 
+    ball.x = ball.x + ball.speedX;
+    ball.y = ball.y + ball.speedY; 
     collisionDetect(); 
 }
 
@@ -231,11 +161,12 @@ function moveAllTwoPlayer() {
     }
     leftPlayerMove();
     rightPlayerMove(); 
-    ballX = ballX + ballSpeedX;
-    ballY = ballY + ballSpeedY; 
+    ball.x = ball.x + ball.speedX;
+    ball.y = ball.y + ball.speedY; 
     collisionDetect(); 
 }
 
+//Zeichnen
 function drawRect(leftX: number, topY: number, width: number, height: number, drawColor: string){
     ctx.fillStyle = drawColor; 
     ctx.fillRect(leftX, topY, width, height); 
@@ -265,10 +196,30 @@ function drawCircle(centerX: number, centerY: number, radius: number, drawColor:
     ctx.stroke(); 
 }
 
+function drawScoreHelp(){
+    if(player2Score == 1){
+        drawBall(800, 0, 40, '#FACD22'); 
+        drawBall(800, 600, 40, '#FACD22'); 
+    }
+    if(player1Score == 1){
+        drawBall(0, 0, 40, '#FACD22'); 
+        drawBall(0, 600, 40, '#FACD22');
+    }
+    if(player2Score == 2){  
+        drawBall(800, 0, 40, '#FA9C37'); 
+        drawBall(800, 600, 40, '#FA9C37'); 
+    }
+    if(player1Score == 2){
+        drawBall(0, 0, 40, '#FA9C37'); 
+        drawBall(0, 600, 40, '#FA9C37');
+    }
+}
+
 function drawAll() {
-    ctx.font = '20px "Arial", sans serif'; 
+    ctx.font = '20px "Video Medium", video, sans serif'; 
     //Spielfeld zeichnen  
     drawRect(0,0,canvas.width,canvas.height,'#F1F1F1'); 
+    
     if(showingWinScreen){
         ctx.fillStyle = '#061324'; 
         if(player1Score >= winningScore) {
@@ -281,6 +232,7 @@ function drawAll() {
         ctx.fillText("Click to continue", 325, 500); 
         return; 
     }
+    drawScoreHelp(); 
     drawCircle(0, 300, 80, '#DB5756')
     drawCircle(800, 300, 80, '#DB5756')
     drawCircle(400, 300, 80, '#061324'); 
@@ -288,22 +240,21 @@ function drawAll() {
     drawLine(550, 0, 550, 600, '#A8C9DA'); 
     drawLine(250, 0, 250, 600, '#A8C9DA'); 
     //zeichnet linken Spieler
-    drawRect(0,player1Y,playerThickness,playerHeight,'#49738C'); 
+    drawRect(0,player1.y,playerThickness,playerHeight,'#49738C'); 
     //zeichnet rechten Spieler
-    drawRect(canvas.width - playerThickness,player2Y,10,playerHeight,'#49738C'); 
+    drawRect(canvas.width - playerThickness,player2.y,10,playerHeight,'#49738C'); 
     //zeichnet Ball 
-    drawBall(ballX, ballY, 10, '#49738C'); 
+    drawBall(ball.x, ball.y, 10, '#49738C'); 
     
     let p1Scoretext: string = player1Score.toString(); // Number to String für print Methode 
     let p2ScoreText: string = player2Score.toString(); 
-
     ctx.fillText(p1Scoretext, 100, 100); 
     ctx.fillText(p2ScoreText, canvas.width - 100, 100); 
-    
 }
 
+//Spielloop 
 function gameLoop() {
-    // updated hier alles
+    // updated hier alle 
     moveAllOnePlayer();
     // rendert hier alles 
     drawAll();
