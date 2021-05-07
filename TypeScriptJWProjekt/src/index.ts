@@ -9,6 +9,12 @@ canvas.addEventListener('mousedown', MouseClickHandler);
 let player1Score: number = 0; 
 let player2Score: number = 0; 
 
+//Signal 
+let executed1: boolean = false; 
+let executed2: boolean = false;
+let executed3: boolean = false;
+let executed4: boolean = false;
+
 //Zahl um Spiel zu gewinnen --> hier veränderbar 
 const winningScore = 3; 
 
@@ -198,22 +204,31 @@ function drawCircle(centerX: number, centerY: number, radius: number, drawColor:
     ctx.stroke(); 
 }
 
+//Signal: Funktioniert leider nur bei der ersten Runde 
 function drawScoreHelp(){
-    if(player2Score == 1){
+    if(player1Score == 1){
+        if (!executed1){ executed1 = true;
         drawBall(800, 0, 40, '#FACD22'); 
         drawBall(800, 600, 40, '#FACD22'); 
+        }
     }
-    if(player1Score == 1){
+    if(player2Score == 1){
+        if (!executed2){ executed2 = true;
         drawBall(0, 0, 40, '#FACD22'); 
         drawBall(0, 600, 40, '#FACD22');
+        }
     }
-    if(player2Score == 2){  
+    if(player1Score == 2){  
+        if (!executed3){ executed3 = true;
         drawBall(800, 0, 40, '#FA9C37'); 
         drawBall(800, 600, 40, '#FA9C37'); 
+        }
     }
-    if(player1Score == 2){
+    if(player2Score == 2){
+        if (!executed4){ executed4 = true;
         drawBall(0, 0, 40, '#FA9C37'); 
         drawBall(0, 600, 40, '#FA9C37');
+        }   
     }
 }
 
@@ -234,7 +249,7 @@ function drawAll() {
         ctx.fillText("Click to continue", 325, 500); 
         return; 
     }
-    drawScoreHelp(); 
+    drawScoreHelp();
     drawCircle(0, 300, 80, '#DB5756')
     drawCircle(800, 300, 80, '#DB5756')
     drawCircle(400, 300, 80, '#061324'); 
