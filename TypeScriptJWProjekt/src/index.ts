@@ -204,7 +204,7 @@ function drawCircle(centerX: number, centerY: number, radius: number, drawColor:
     ctx.stroke(); 
 }
 
-//Signal: Funktioniert leider nur bei der ersten Runde 
+//Signal: Funktioniert leider nur bei der ersten Runde mit verschwinden 
 function drawScoreHelp(){
     if(player1Score == 1){
         if (!executed1){ executed1 = true;
