@@ -1,3 +1,9 @@
+//Canvas
+export const gameCanvas = {
+    width: 800, 
+    height: 600,
+};
+
 // Player
 export const playerHeight: number = 100; 
 export const playerThickness: number = 10; 

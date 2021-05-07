@@ -1,10 +1,8 @@
 import { hitSound, scoreSound, wallHitSound } from "./audio";
-import { startSpiel, startSpiel2 } from "./dom-utils";  
-import { player1, player2, playerHeight, playerThickness, ball} from './config'; 
+import { startSpiel, startSpiel2, ctx, canvas} from "./dom-utils";  
+import { player1, player2, playerHeight, playerThickness, ball, gameCanvas} from './config'; 
 import { upArrowPressed, downArrowPressed, WPressed, SPressed} from './event'; 
 
-let canvas = document.getElementById('gameCanvas') as HTMLCanvasElement; 
-const ctx = canvas.getContext('2d')!;
 canvas.addEventListener('mousedown', MouseClickHandler); 
 
 //PlayerScore
@@ -13,6 +11,10 @@ let player2Score: number = 0;
 
 //Zahl um Spiel zu gewinnen --> hier veränderbar 
 const winningScore = 3; 
+
+//Canvas Höhe und Breite 
+canvas.width = gameCanvas.width; 
+canvas.height = gameCanvas.height; 
 
 // Endscreen
 let showingWinScreen = false; 

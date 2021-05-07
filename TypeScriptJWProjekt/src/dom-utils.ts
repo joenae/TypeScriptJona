@@ -1,3 +1,6 @@
+export const canvas = document.getElementById('gameCanvas') as HTMLCanvasElement; 
+export const ctx = canvas.getContext('2d')!;
+
 const splash = document.querySelector('.splash') as HTMLElement; 
 const opBtn = document.getElementById('rules-btn') as HTMLElement;
 const clBtn = document.getElementById('close-btn')as HTMLElement;
